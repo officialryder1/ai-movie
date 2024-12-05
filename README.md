@@ -72,8 +72,8 @@ Follow these instructions to get the project up and running on your local machin
 5. Open a pull request.
 
 ### 🧑‍💻 Authors
-Github @officialryder1
-twitter: @official_ryder0
+- Github @officialryder1
+- twitter: @official_ryder0
 
 ### 📜 License
 **This project is licensed under the MIT License - see the LICENSE file for details**.
