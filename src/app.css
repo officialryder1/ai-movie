@@ -3,6 +3,35 @@
     margin: 0;
 }
 
-body{
+:root{
+    --bg-color: #ffffff;
+    --text-color: #021526;
+    --button-color: #021526;
+    --footer-color: #021526;
+    
+}
+
+.dark{
+    --bg-color: #021526;
+    --text-color: #ffffff;
+    --button-color: #ffffff;
+    --footer-color: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
     font-family: "Open Sans", sans-serif;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    scroll-behavior: smooth;
+  }
+button{
+    background-color: var(--button-color);
+    color: var(--bg-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+footer{
+    background-color: var(--footer-color);
+    color: var(--bg-color);
+    transition: background-color 0.3s, color 0.3s;
 }
