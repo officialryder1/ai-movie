@@ -1,6 +1,8 @@
 <script>
     import ThemeToggle from "$lib/components/ThemeToggle.svelte";
     import MovieCard from "$lib/components/MovieCard.svelte";
+
+    let show = false
 </script>
 
 <ThemeToggle/>
@@ -12,11 +14,13 @@
 </div>
 <form>
     <input type="text" placeholder="movie name">
-    <button>search</button>
+    <button onclick={show = !show}>search</button>
 </form>
 <div>
-    <h1>Results</h1><br>
-    <MovieCard/>
+    {#if show}
+        <h1>Results</h1><br>
+        <MovieCard/>
+    {/if}
 </div>
 
 <style>
