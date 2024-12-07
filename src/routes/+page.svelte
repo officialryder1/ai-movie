@@ -2,8 +2,54 @@
     import ThemeToggle from "$lib/components/ThemeToggle.svelte";
     import MovieCard from "$lib/components/MovieCard.svelte";
 
-    let show = false
+    import { fade, fly } from "svelte/transition";
+	import { backOut } from "svelte/easing";
+
+    let movie = $state("")
+    let suggestions = $state([])
+    let isLoading = $state(false)
+    let error = $state("")
+
+    
+    
+
+    // $inspect(suggestions)
+    const getMovieSuggestions = async () => {
+        if(!movie.trim()){
+            error = "Please enter a movie name."
+            return
+        }
+
+        isLoading = true
+        error = ""
+        try{
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    movie: movie
+                })
+            })
+
+            if(response.ok){
+                suggestions = await response.json()
+            } else {
+                throw new Error("Failed to fetch movie suggestions")
+            }
+        } catch (error) {
+            error = error.message
+            console.error(error)
+        } finally {
+            isLoading=false
+        }
+        
+    }
 </script>
+
+<svelte:head>
+    <title>Home | 😊🥂</title>
+</svelte:head>
+
 
 <ThemeToggle/>
 <h1>AI Movie Suggester</h1>
@@ -12,16 +58,24 @@
         we suggest a similar movie to your input.
     </p>
 </div>
-<form>
-    <input type="text" placeholder="movie name">
-    <button onclick={show = !show}>search</button>
-</form>
-<div>
-    {#if show}
-        <h1>Results</h1><br>
-        <MovieCard/>
-    {/if}
+
+<input type="text" placeholder="movie name" bind:value={movie}>
+<button
+    onclick={getMovieSuggestions}
+    disabled={isLoading}
+>{isLoading ? "Loading..." : "Get Suggestions"}</button>
+<br>
+{#if error}
+    <p>{error}</p>
+{/if}
+<div in:fade={{delay: 300, easing: backOut, duration:300}}>
+    <MovieCard {suggestions}/>
 </div>
+<!-- <ul class="suggestions">
+    {#each suggestions as suggestion, i}
+        <li class="suggestion-item">{suggestion}</li>
+    {/each}
+</ul> -->
 
 <style>
     h1{
@@ -29,7 +83,7 @@
         font-weight: bolder;
         line-height: -1;
     }
-    form input {
+    input {
         width: 250px;
         height: 35px;
         border-radius: 5px;
@@ -46,14 +100,14 @@
         border-top: 1px solid orangered;
     }
     button {
-      width: 55px;
-      height: 43px;
-      border-radius: 5px;
-      border: none;
-      box-shadow: 4px 8px rgba(0, 0, 0, 0.3);
-      font-weight: 600;
-      letter-spacing: 1px;
-      cursor: pointer;
+        padding: 10px;
+        height: 43px;
+        border-radius: 5px;
+        border: none;
+        box-shadow: 4px 8px rgba(0, 0, 0, 0.3);
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
     }
     .typing-container{
         display: inline-block;
@@ -67,6 +121,16 @@
         transition: animation 2s ease-in-out;
         letter-spacing: 2px;
     }
+
+    /* .suggestions {
+        margin-top: 20px;
+        list-style: none;
+        padding: 0;
+    }
+    .suggestion-item {
+        font-size: 18px;
+        padding: 5px;
+    } */
 
     @keyframes typing{
         from {
