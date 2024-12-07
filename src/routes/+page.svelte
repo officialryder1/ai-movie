@@ -66,7 +66,7 @@
 >{isLoading ? "Loading..." : "Get Suggestions"}</button>
 <br>
 {#if error}
-    <p>{error}</p>
+    <p class="error">{error}</p>
 {/if}
 <div in:fade={{delay: 300, easing: backOut, duration:300}}>
     <MovieCard {suggestions}/>
@@ -122,6 +122,11 @@
         letter-spacing: 2px;
     }
 
+    .error{
+        color: red;
+        margin-top: 10px;
+        font-weight: bold;
+    }
     /* .suggestions {
         margin-top: 20px;
         list-style: none;
