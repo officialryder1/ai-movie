@@ -46,10 +46,6 @@
     }
 </script>
 
-<svelte:head>
-    <title>Home | 😊🥂</title>
-</svelte:head>
-
 
 <ThemeToggle/>
 <h1>AI Movie Suggester</h1>

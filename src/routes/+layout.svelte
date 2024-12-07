@@ -4,6 +4,18 @@
     let { children } = $props()
 </script>
 
+<svelte:head>
+    <title>theDiscova</title>
+    <meta name="description" content="Let's help you find similar movies to your favorite">
+    <meta name="keywords" content="movie suggestions, AI recommendations, popular movies">
+    <meta name="author" content="Officialryder">
+    <meta property="og:title" content="TheDiscova">
+    <meta property="og:description" content="Let's help you find similar movies to your favorite">
+    <meta property="og:image" content="/images/Element_Geo.webp/">
+    <meta property="og:url" content="">
+
+</svelte:head>
+
 <main>
     {@render children()}
 </main>
