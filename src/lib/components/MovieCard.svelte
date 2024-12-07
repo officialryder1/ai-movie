@@ -1,13 +1,27 @@
+<script>
+    let {suggestions} = $props()
+
+    let card = $derived(suggestions?.suggestions || [])
+    $inspect(card)
+    $inspect(suggestions)
+</script>
 <div class="container">
-    <div class="card">
-        <!-- svelte-ignore a11y_img_redundant_alt -->
-        <img src="https://via.placeholder.com/150" alt="Card Image" class="card-image" />
-        <div class="card-content">
-            <h2 class="card-title">Card Title</h2>
-            <p class="card-description">This is a brief description of the content inside the card. It is concise and to the point.</p>
-            <button class="card-button">Learn More</button>
+    {#if card.length > 0}
+    {#each card as cards (cards.imdbID)}
+        <div class="card">
+            <!-- svelte-ignore a11y_img_redundant_alt -->
+            <img src={cards.Poster !== "N/A" ? cards.Poster : "https://via.placeholder.com/150"} alt="Card Image" class="card-image" loading="lazy" />
+            <div class="card-content">
+                <h2 class="card-title">{cards.Title}</h2>
+                <p class="card-description">{cards.Plot}.</p>
+                <div class="badge">
+                    <span>{cards.imdbRating}</span>
+                </div>
+                <a href={`https://www.google.com/search?q=${cards.Title}`} target="_blank" rel="noopener noreferrer" class="card-button">Learn More</a>
+            </div>
         </div>
-    </div>
+    {/each}
+    {/if}
     
 </div>
 
@@ -26,7 +40,7 @@
 /* Image styling */
 .card-image {
     width: 100%;
-    height: 150px;
+    height: 250px;
     object-fit: cover;
 }
 
@@ -71,5 +85,32 @@
     transform: translateY(-10px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
+.container{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.badge{
+    display: inline-block;
+    background-color: #282202;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 12px; /* Rounded corners */
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
 
+/* Hover effect for badge */
+.badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+a{
+    text-decoration: none;
+}
 </style>

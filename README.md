@@ -36,7 +36,7 @@ Follow these instructions to get the project up and running on your local machin
     create a .env file and add the following
     __.env
 
-    MOVIE_API_KEY=your_api_key
+    OMDB_API_KEY=your_api_key
     QUOQ_AI_KEY=your_api_key
 
 4. **Run the Project**
@@ -46,8 +46,8 @@ Follow these instructions to get the project up and running on your local machin
 5. **Open the app in your browser at http://localhost:5173**
 
 ## ⚒️ Technologies Used
- - Frontend: SvelteKit / React (Choose your framework).
- - Database: TMDb/OMDb API or a custom movie dataset.
+ - Frontend: SvelteKit.
+ - Database: TMDb/OMDb API.
  - AI Model:
     NLP techniques for movie name parsing.
     Recommendation algorithm using cosine similarity or collaborative filtering.
@@ -55,7 +55,8 @@ Follow these instructions to get the project up and running on your local machin
 ## 📖 How it Works
 1. **User Input:** The user enters the name of a movie they like.
 2. **AI Processing:** The app fetches related movies using an AI model or recommendation engine
-3. **Results:** The related movies are displayed in a user-friendly format with details like title, posters, and release year.
+3. **Query OMDB APi:** The app then get movies details from omdb api as recommendation.
+4. **Results:** The related movies are displayed in a user-friendly format with details like title, posters, and release year.
 
 ## 💡 Future Enhancements
 - User ratings and reviews integration.
